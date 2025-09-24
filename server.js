@@ -10,10 +10,22 @@ const data = require(path.join(__dirname, "data", "items.json"));
 
 app.use(express.json());
 
+// Route to test if data is displayed in json format.
+app.get('/test', (req, res) => {
+  res.json({ status: "ok", message: "Server is up and running!" });
+});
 
+// Routes defining route
 app.get('/', (req, res) => {
-  res.send('Express server is up and  running!')
-})
+  res.json({
+    info: "Express server is up and running!",
+    routes: {
+      "/all": "Return all JSON items",
+      "/names": "Return only the names of the items",
+      "/color/:color": "Return items filtered by color"
+    }
+  });
+});
 
 app.get('/all', (req, res) => {
     res.json(data)
